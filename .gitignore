@@ -1,9 +1,5 @@
 *.pyc
-*.png
-*.PNG
-*.jpg
-*.JPG
 *.txt
 *.pth
 predict/Baidu/
-*.idea
+.idea
