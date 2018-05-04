@@ -12,6 +12,7 @@ from torch.optim import lr_scheduler
 from utils.train_util import train, trainlog
 from  torch.nn import CrossEntropyLoss
 import logging
+from models.multiscale_resnet import multiscale_resnet
 rawdata_root = '/media/hszc/data/detao/data/baidu/datasets/train'
 all_pd = pd.read_csv("/media/hszc/data/detao/data/baidu/datasets/train.txt",sep=" ",
                        header=None, names=['ImageName', 'label'])
@@ -55,10 +56,10 @@ dataloader['train']=torch.utils.data.DataLoader(data_set['train'], batch_size=4,
 dataloader['val']=torch.utils.data.DataLoader(data_set['val'], batch_size=4,
                                                shuffle=True, num_workers=4,collate_fn=collate_fn)
 '''model'''
-model =resnet50(pretrained=True)
-model.avgpool = torch.nn.AdaptiveAvgPool2d(output_size=1)
-model.fc = torch.nn.Linear(model.fc.in_features,100)
-
+# model =resnet50(pretrained=True)
+# model.avgpool = torch.nn.AdaptiveAvgPool2d(output_size=1)
+# model.fc = torch.nn.Linear(model.fc.in_features,100)
+model =multiscale_resnet(num_class=100)
 base_lr =0.001
 resume =None
 if resume:

@@ -52,8 +52,14 @@ def train(model,
             optimizer.zero_grad()
 
             outputs = model(inputs)
-            loss = criterion(outputs, labels)
+            if isinstance(outputs, list):
+                loss = criterion(outputs[0], labels)
+                loss += criterion(outputs[1], labels)
+                outputs=outputs[0]
+            else:
+                loss = criterion(outputs, labels)
 
+            _, preds = torch.max(outputs, 1)
             loss.backward()
             optimizer.step()
 
@@ -88,8 +94,13 @@ def train(model,
 
                     # forward
                     outputs = model(inputs)
+                    if isinstance(outputs, list):
+                        loss = criterion(outputs[0], labels)
+                        loss += criterion(outputs[1], labels)
+                        outputs = outputs[0]
 
-                    loss = criterion(outputs, labels)
+                    else:
+                        loss = criterion(outputs, labels)
                     _, preds = torch.max(outputs, 1)
 
                     # statistics
