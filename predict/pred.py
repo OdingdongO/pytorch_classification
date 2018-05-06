@@ -1,7 +1,7 @@
 import os
 import numpy as np
 import pandas as pd
-from BDXJTUdata.BDXJTUdataset import BDXJTUdata, collate_fn
+from dataset.dataset import dataset, collate_fn
 import torch
 from torch.nn import CrossEntropyLoss
 import torch.utils.data as torchdata
@@ -36,7 +36,7 @@ test_pd =true_test_pb if mode=="test" else val_pd
 print(test_pd.head())
 
 data_set = {}
-data_set['test'] = BDXJTUdata(imgroot=os.path.join(rawdata_root, mode), anno_pd=test_pd,
+data_set['test'] = dataset(imgroot=os.path.join(rawdata_root, mode), anno_pd=test_pd,
                              transforms=test_transforms,
                              )
 data_loader = {}
@@ -76,7 +76,12 @@ for batch_cnt_test, data_test in enumerate(data_loader['test']):
 
     # statistics
     loss = criterion(outputs, labels)
-    outputs=softmax(outputs)
+    if isinstance(outputs, list):
+        loss = criterion(outputs[0], labels)
+        loss += criterion(outputs[1], labels)
+        outputs = (outputs[0]+outputs[1])/2
+    else:
+        loss = criterion(outputs, labels)
     _, preds = torch.max(outputs, 1)
 
     test_loss += loss.data[0]

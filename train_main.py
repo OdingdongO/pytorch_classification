@@ -2,7 +2,7 @@
 import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from BDXJTUdata.BDXJTUdataset import collate_fn, BDXJTUdata
+from dataset.dataset import collate_fn, dataset
 import torch
 import torch.utils.data as torchdata
 from torchvision import datasets, models, transforms
@@ -44,10 +44,10 @@ if not os.path.exists(save_dir):
 logfile = '%s/trainlog.log'%save_dir
 trainlog(logfile)
 data_set = {}
-data_set['train'] = BDXJTUdata(imgroot=rawdata_root,anno_pd=train_pd,
+data_set['train'] = dataset(imgroot=rawdata_root,anno_pd=train_pd,
                            transforms=data_transforms["train"],
                            )
-data_set['val'] = BDXJTUdata(imgroot=rawdata_root,anno_pd=val_pd,
+data_set['val'] = dataset(imgroot=rawdata_root,anno_pd=val_pd,
                            transforms=data_transforms["val"],
                            )
 dataloader = {}

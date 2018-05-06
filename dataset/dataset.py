@@ -4,7 +4,7 @@ import os
 import torch
 import torch.utils.data as data
 import PIL.Image as Image
-class BDXJTUdata(data.Dataset):
+class dataset(data.Dataset):
     def __init__(self, imgroot, anno_pd, transforms=None):
         self.root_path = imgroot
         self.paths = anno_pd['ImageName'].tolist()

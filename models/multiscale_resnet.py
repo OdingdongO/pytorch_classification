@@ -13,15 +13,17 @@ class multiscale_resnet(nn.Module):
     def forward(self, x):
         input_size = x.size()[2]
         self.interp = nn.UpsamplingBilinear2d(size = (int(input_size*0.75)+1,  int(input_size*0.75)+1))
-        out =[]
+
         x2 = self.interp(x)
-        x_map = self.base_model(x)
-        x = self.avgpool(x_map)
+        x = self.base_model(x)
+        x = self.avgpool(x)
         x = x.view(x.size(0), -1)
 
         x2 = self.base_model(x2)
         x2 = self.avgpool(x2)
         x2 = x2.view(x2.size(0), -1)
+
+        out =[]
         out.append(self.classifier(x))
         out.append(self.classifier(x2))
         return out
