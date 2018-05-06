@@ -11,7 +11,7 @@ from sklearn.model_selection import train_test_split
 from torch.autograd import Variable
 from math import ceil
 from  torch.nn.functional import softmax
-
+from models.multiscale_resnet import multiscale_resnet
 test_transforms= transforms.Compose([
             transforms.Resize(224),
             transforms.CenterCrop(224),
@@ -44,11 +44,12 @@ data_loader['test'] = torchdata.DataLoader(data_set['test'], batch_size=4, num_w
                                            shuffle=False, pin_memory=True, collate_fn=collate_fn)
 
 model_name = 'resnet50-out'
-resume = '/media/hszc/model/detao/baidu_model/resnet50/weights-6-526-[0.9071].pth'
+resume = '/media/hszc/model/detao/baidu_model/multiscale_resnet/weights-20-360-[0.9760].pth'
 
-model =resnet50(pretrained=True)
-model.avgpool = torch.nn.AdaptiveAvgPool2d(output_size=1)
-model.fc = torch.nn.Linear(model.fc.in_features,100)
+# model =resnet50(pretrained=True)
+# model.avgpool = torch.nn.AdaptiveAvgPool2d(output_size=1)
+# model.fc = torch.nn.Linear(model.fc.in_features,100)
+model =multiscale_resnet(num_class=100)
 
 print('resuming finetune from %s'%resume)
 model.load_state_dict(torch.load(resume))
@@ -75,7 +76,6 @@ for batch_cnt_test, data_test in enumerate(data_loader['test']):
     outputs = model(inputs)
 
     # statistics
-    loss = criterion(outputs, labels)
     if isinstance(outputs, list):
         loss = criterion(outputs[0], labels)
         loss += criterion(outputs[1], labels)
