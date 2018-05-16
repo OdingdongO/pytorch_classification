@@ -70,15 +70,14 @@ model = model.cuda()
 optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9, weight_decay=1e-5)
 criterion = CrossEntropyLoss()
 exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=6, gamma=0.1)
-best_acc,best_model_wts = train(model,
-                                  epoch_num=50,
-                                  start_epoch=0,
-                                  optimizer=optimizer,
-                                  criterion=criterion,
-                                  exp_lr_scheduler=exp_lr_scheduler,
-                                  data_set=data_set,
-                                  data_loader=dataloader,
-                                  save_dir=save_dir,
-                                  print_inter=50,
-                                  val_inter=400,
-                                  )
+train(model, epoch_num=50,
+      start_epoch=0,
+      optimizer=optimizer,
+      criterion=criterion,
+      exp_lr_scheduler=exp_lr_scheduler,
+      data_set=data_set,
+      data_loader=dataloader,
+      save_dir=save_dir,
+      print_inter=50,
+      val_inter=400,
+      )
