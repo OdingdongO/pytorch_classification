@@ -6,8 +6,8 @@ import math
 from sklearn.utils import shuffle
 
 __all__ = ['Compose','RandomHflip', 'RandomUpperCrop', 'Resize', 'UpperCrop', 'RandomBottomCrop',"RandomErasing",
-           'BottomCrop', 'Normalize', 'RandomSwapChannels', 'RandomRotate', 'RandomHShift',"CenterCrop",
-           'ExpandBorder', 'RandomResizedCrop','RandomDownCrop', 'DownCrop', 'ResizedCrop']
+           'BottomCrop', 'Normalize', 'RandomSwapChannels', 'RandomRotate', 'RandomHShift',"CenterCrop","RandomVflip",
+           'ExpandBorder', 'RandomResizedCrop','RandomDownCrop', 'DownCrop', 'ResizedCrop',"FixRandomRotate"]
 
 def rotate_nobound(image, angle, center=None, scale=1.):
     (h, w) = image.shape[:2]
@@ -39,7 +39,19 @@ def fixed_crop(src, x0, y0, w, h, size=None):
     if size is not None and (w, h) != size:
         out = cv2.resize(out, (size[0], size[1]), interpolation=cv2.INTER_CUBIC)
     return out
+class FixRandomRotate(object):
+    def __init__(self, angles=[0,90,180,270], bound=False):
+        self.angles = angles
+        self.bound = bound
 
+    def __call__(self,img):
+        do_rotate = random.randint(0, 4)
+        angle=self.angles[do_rotate]
+        if self.bound:
+            img = rotate_bound(img, angle)
+        else:
+            img = rotate_nobound(img, angle)
+        return img
 
 def center_crop(src, size):
     h, w = src.shape[0:2]
@@ -324,6 +336,12 @@ class RandomHflip(object):
             return cv2.flip(image, 1)
         else:
             return image
+class RandomVflip(object):
+    def __call__(self, image):
+        if random.randint(2):
+            return cv2.flip(image, 0)
+        else:
+            return image
 
 
 class Hflip(object):
@@ -545,7 +563,7 @@ class BottomCrop():
 
 
 class Resize(object):
-    def __init__(self, size, inter=cv2.INTER_LINEAR):
+    def __init__(self, size, inter=cv2.INTER_CUBIC):
         self.size = size
         self.inter = inter
 

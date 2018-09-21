@@ -4,6 +4,8 @@
 
 [AI Challenger 2018 农作物病害检测](https://challenger.ai/competition/pdr2018):单模型线上0.83+ <Br/>
 
+[天池 > 广东工业智造大数据创新大赛:铝型材表面瑕疵识别](https://tianchi.aliyun.com/competition/information.htm?spm=5176.11165268.5678.2.7d4910c5YfrwzY&raceId=231682):单模型线上0.91+ <Br/>
+
 --------------------------------------------------------
 运行环境:Ubuntu系统 Python2 pytorch0.3
 --------------------------------------------------------
