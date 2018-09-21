@@ -2,7 +2,7 @@
 import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from dataset.dataset import collate_fn, dataset
+from dataset.bd_xjtu_dataset import collate_fn, dataset
 import torch
 import torch.utils.data as torchdata
 from torchvision import datasets, models, transforms
@@ -14,7 +14,9 @@ from  torch.nn import CrossEntropyLoss
 import logging
 from dataset.data_aug import *
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
-
+'''
+http://dianshi.baidu.com/gemstone/competitions/detail?raceId=17
+'''
 save_dir = '/media/hszc/model/detao/baidu_model/resnet50'
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)

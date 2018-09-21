@@ -1,7 +1,7 @@
 import os
 import numpy as np
 import pandas as pd
-from dataset.dataset import dataset, collate_fn
+from dataset.bd_xjtu_dataset import dataset, collate_fn
 import torch
 from torch.nn import CrossEntropyLoss
 import torch.utils.data as torchdata
@@ -99,4 +99,4 @@ test_pred['label'] = list(test_preds)
 test_pred['label'] = test_pred['label'].apply(lambda x: int(x)+1)
 test_pred[['ImageName',"label"]].to_csv('Baidu/csv/{0}_{1}.csv'.format(model_name,mode) ,sep=" ",
                                                                  header=None, index=False)
-print test_pred.info()
+print (test_pred.info())
