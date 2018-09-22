@@ -2,8 +2,6 @@
 =========================================
 [百度-西交大·大数据竞赛2018——商家招牌的分类与检测](http://dianshi.baidu.com/gemstone/competitions/detail?raceId=17):单模型线上0.99+ <Br/>
 
-[AI Challenger 2018 农作物病害检测](https://challenger.ai/competition/pdr2018):单模型线上0.83+ <Br/>
-
 [天池 > 广东工业智造大数据创新大赛:铝型材表面瑕疵识别](https://tianchi.aliyun.com/competition/information.htm?spm=5176.11165268.5678.2.7d4910c5YfrwzY&raceId=231682):单模型线上0.91+ <Br/>
 
 --------------------------------------------------------
