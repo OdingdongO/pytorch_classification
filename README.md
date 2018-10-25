@@ -6,6 +6,8 @@
 
 [农作物病害检测](https://challenger.ai/competition/pdr2018):单模型线上0.845+ <Br/>
 
+[“探寻地球密码”天宫数据利用大赛](http://dianshi.baidu.com/dianshi/pc/competition/22/rank):单模型未调参线上0.99+ <Br/>
+
 --------------------------------------------------------
 运行环境:Ubuntu系统 Python2 pytorch0.3
 --------------------------------------------------------
